@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tracking_visualization</name>
+  <version>1.0.0</version>
+  <description>The package for visualizing trajectories from a stream of pose or odometry messages</description>
+
+  <author email="r-baran@hotmail.fr">Robin Baran</author> 
+  <maintainer email="r-baran@hotmail.fr">Robin Baran</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/RBinsonB/trajectory_visualization.git</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
+  <build_export_depend>nav_msgs</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+
+</package>
