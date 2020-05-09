@@ -30,7 +30,7 @@ class trajectory_path:
 		#Setup subscriber to pose with covariance stamped
 		self.pose_cov_stamped_sub = rospy.Subscriber('pose_cov_stamped_topic', PoseWithCovarianceStamped, self.pose_cov_stamped_callback)
 		#Setup subscriber to odometry
-		self.odom_sub = rospy.subscriber('odom_topic', Odometry, self.odom_callback)
+		self.odom_sub = rospy.Subscriber('odom_topic', Odometry, self.odom_callback)
 
 
 	#=====================================
@@ -133,8 +133,8 @@ class trajectory_path:
 				self.trajectory_path_msg.poses = self.trajectory_path_msg.poses[1:]
 				self.trajectory_path_msg.poses.append(pose_stamped_msg)
 
-				self.previous_pose_position = pose_stamped_msg.pose.position
-				self.trajectory_path_pub.publish(self.trajectory_path_msg)
+			self.previous_pose_position = pose_stamped_msg.pose.position
+			self.trajectory_path_pub.publish(self.trajectory_path_msg)
 
 
 #=====================================

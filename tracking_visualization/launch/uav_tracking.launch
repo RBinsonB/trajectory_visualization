@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<launch>
+	<include file="$(find mocap_qualisys)/launch/qualisys.launch" />
+
+	<!-- Node for visualizing trajectory from mocap -->
+ 	<node name="mocap_trajectory_visualization" pkg="tracking_visualization" type="trajectory_visualization.py" output="screen">
+ 		<remap from="odom_topic" to="/ground_truth/odometry"/>
+ 	</node>
+
+	<!-- Node for visualizing trajectory from state estimator -->
+ 	<node name="estimator_trajectory_visualization" pkg="tracking_visualization" type="trajectory_visualization.py" output="screen">
+ 		<remap from="pose_stamped_topic" to="/mavros/local_position/pose"/>
+ 	</node>
+
+	<node type="rviz" name="rviz" pkg="rviz" args="-d $(find tracking_visualization)/rviz/uav_tracking.rviz" />
+
+</launch>
