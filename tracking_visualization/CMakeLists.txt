@@ -13,3 +13,18 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
 )
+
+catkin_python_setup()
+
+catkin_package(
+  CATKIN_DEPENDS rospy geometry_msgs nav_msgs
+)
+
+include_directories(
+# include
+  ${catkin_INCLUDE_DIRS}
+)
+
+catkin_install_python(PROGRAMS src/tracking_visualization/trajectory_visualization.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+ )
