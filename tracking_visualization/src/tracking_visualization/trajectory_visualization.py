@@ -66,7 +66,7 @@ class trajectory_path:
 		if pose_stamped_msg.header.frame_id == self.frame_id :
 			self.publish_trajectory_path(pose_stamped_msg.pose.position)
 		else:
-			rospy.logerror("PoseStamped message frame:"+pose_stamped_msg.header.frame_id+" does not correspond to trajectory frame"+self.frame_id)
+			rospy.logerr("PoseStamped message frame:"+pose_stamped_msg.header.frame_id+" does not correspond to trajectory frame"+self.frame_id)
 
 
 	#=====================================
@@ -89,7 +89,7 @@ class trajectory_path:
 		if pose_cov_stamped_msg.header.frame_id == self.frame_id :
 			self.publish_trajectory_path(pose_cov_stamped_msg.pose.pose.position)
 		else:
-			rospy.logerror("PoseWithCovaranceStamped message frame:"+pose_cov_stamped_msg.header.frame_id+" does not correspond to trajectory frame"+self.frame_id)
+			rospy.logerr("PoseWithCovaranceStamped message frame:"+pose_cov_stamped_msg.header.frame_id+" does not correspond to trajectory frame"+self.frame_id)
 
 
 	#=====================================
@@ -102,7 +102,7 @@ class trajectory_path:
 		if odom_msg.header.frame_id == self.frame_id :
 			self.publish_trajectory_path(odom_msg.pose.pose.position)
 		else:
-			rospy.logerror("Odometry message frame:"+odom_msg.header.frame_id+" does not correspond to trajectory frame"+self.frame_id)
+			rospy.logerr("Odometry message frame:"+odom_msg.header.frame_id+" does not correspond to trajectory frame"+self.frame_id)
 
 
 	#=====================================
@@ -112,9 +112,10 @@ class trajectory_path:
 	def publish_trajectory_path(self, position):
 	#If the pose has move more than a set threshold, add it to the path message and publish
 		if ((abs(self.previous_pose_position.x - position.x) > self.threshold)
-		 or (abs(self.previous_pose_position.y - position.x) > self.threshold)
-		 or (abs(self.previous_pose_position.z - position.x) > self.threshold)):
+		 or (abs(self.previous_pose_position.y - position.y) > self.threshold)
+		 or (abs(self.previous_pose_position.z - position.z) > self.threshold)):
 			rospy.logdebug('Exceding threshold, adding pose to path')
+
 			#Add current pose to path
 			self.trajectory_path_msg.header.stamp = rospy.Time.now()
 			self.trajectory_path_msg.header.frame_id = self.frame_id
@@ -123,6 +124,7 @@ class trajectory_path:
 			pose_stamped_msg.pose.position.x = position.x
 			pose_stamped_msg.pose.position.y = position.y
 			pose_stamped_msg.pose.position.z = position.z
+			pose_stamped_msg.pose.orientation.w = 1.0
 
 			#If max number of poses in path has not been reach, just add pose to message
 			if len(self.trajectory_path_msg.poses) < self.max_poses:
@@ -145,4 +147,4 @@ if __name__ == "__main__":
 	try:
 		rospy.spin()
 	except KeyboardInterrupt:
-		print "Shutting down"
+		print("Shutting down")
